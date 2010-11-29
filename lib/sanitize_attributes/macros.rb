@@ -27,7 +27,9 @@ module SanitizeAttributes
       args.each do |attr|
         self.sanitizable_attribute_hash[attr] = block
         define_method attr do
-          self[attr].html_safe
+          sanitized_text = self[attr]
+          sanitized_text = sanitized_text.html_safe unless sanitized_text.nil?
+          sanitized_text
         end
       end
 
