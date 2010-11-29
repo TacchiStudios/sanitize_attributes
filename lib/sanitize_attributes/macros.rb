@@ -26,6 +26,9 @@ module SanitizeAttributes
 
       args.each do |attr|
         self.sanitizable_attribute_hash[attr] = block
+        define_method attr do
+          self[attr].html_safe
+        end
       end
 
       true
