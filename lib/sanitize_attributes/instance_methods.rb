@@ -1,13 +1,22 @@
 module SanitizeAttributes
   module InstanceMethods
-        
-    # sanitize! is the method that is called when a model is saved.
-    # It can be called to manually sanitize attributes.
-    def sanitize!
-      self.class.sanitizable_attributes.each do |attr_name|
-        cleaned_text = process_text_via_sanitization_method(self.send(attr_name), attr_name)
-        self.send((attr_name.to_s + '='), cleaned_text)
+
+    def write_attribute(*args)
+      attr_name = args[0].to_sym
+      value = args[1]
+      if self.class.sanitizable_attributes.include?(attr_name)
+        args[1] = process_text_via_sanitization_method(value, attr_name)
       end
+      super(*args)
+    end
+
+    def read_attribute(*args)
+      attr_name = args[0].to_sym
+      val = super
+      if self.class.sanitizable_attributes.include?(attr_name)
+        val = val.html_safe unless val.nil?
+      end
+      val
     end
         
     private

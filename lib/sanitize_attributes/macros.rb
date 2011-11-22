@@ -2,19 +2,9 @@ module SanitizeAttributes
   module Macros
     # sanitize_attributes is used to define sanitizable attributes within a model definition.
     def sanitize_attributes(*args, &block)
-      if (args.last && args.last.is_a?(Hash))
-        options = args.pop
-      end
-      options ||= {}
       unless @sanitize_hook_already_defined
         include InstanceMethods
         extend ClassMethods
-
-        if options[:before_validation]
-          before_validation :sanitize!
-        else
-          before_save :sanitize!
-        end
 
         cattr_accessor :sanitizable_attribute_hash
         cattr_accessor :sanitization_block_array
@@ -33,11 +23,6 @@ module SanitizeAttributes
 
       args.each do |attr|
         self.sanitizable_attribute_hash[attr] = block
-        define_method attr do
-          sanitized_text = self[attr]
-          sanitized_text = sanitized_text.html_safe unless sanitized_text.nil?
-          sanitized_text
-        end
       end
 
       true

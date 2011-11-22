@@ -1,6 +1,7 @@
 require 'test/unit'
 require 'set'
 require 'rubygems'
+require 'active_support/core_ext/string/output_safety'
 require 'active_record'
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 gem 'thoughtbot-shoulda'
