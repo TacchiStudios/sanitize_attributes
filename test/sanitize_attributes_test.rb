@@ -70,6 +70,7 @@ class SanitizeAttributesTest < Test::Unit::TestCase
       assert article.save!
       assert_equal "sanitized", article.title
       assert_equal "do not change", article.review
+      assert article.title.html_safe?, "expected title to be html safe"
     end
     
     should "not sanitize nil attributes" do

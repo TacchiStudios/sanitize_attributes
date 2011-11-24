@@ -23,6 +23,14 @@ module SanitizeAttributes
 
       args.each do |attr|
         self.sanitizable_attribute_hash[attr] = block
+
+        class_eval <<-EOM, __FILE__, __LINE__ + 1
+          def #{attr}
+            val = read_attribute('#{attr}')
+            val = val.html_safe unless val.nil?
+            val
+          end
+        EOM
       end
 
       true

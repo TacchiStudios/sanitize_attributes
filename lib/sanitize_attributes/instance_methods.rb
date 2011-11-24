@@ -10,15 +10,6 @@ module SanitizeAttributes
       super(*args)
     end
 
-    def read_attribute(*args)
-      attr_name = args[0].to_sym
-      val = super
-      if self.class.sanitizable_attributes.include?(attr_name)
-        val = val.html_safe unless val.nil?
-      end
-      val
-    end
-        
     private
       def process_text_via_sanitization_method(txt, attr_name = nil)
         return nil if txt.nil?
