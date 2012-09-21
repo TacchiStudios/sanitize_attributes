@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["dev@forgreatjustice.net"]
   s.homepage    = "https://github.com/devp/sanitize_attributes"
   s.summary     = %q{This is a simple plugin for ActiveRecord models to define sanitizable attributes.}
-  s.description = %q{This is a simple plugin for ActiveRecord models to define sanitizable attributes. When an object is saved, those attributes will be run through whatever filter you’ve defined. You can define a default filter for all sanitizations.}
+  s.description = %q{This is a simple plugin for ActiveRecord models to define sanitizable attributes. When an object is saved, those attributes will be run through whatever filter you have defined. You can define a default filter for all sanitizations.}
 
   s.rubyforge_project = "sanitize_attributes"
 
